@@ -4,12 +4,12 @@ namespace GoDataSyncServices.Models
 {
     public class Tenants
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Domain { get; set; }
-        public bool? IsActive { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public Guid id { get; set; }
+        public string name { get; set; }
+        public string? owner_email { get; set; }
+        public string? owner_name { get; set; }
+        public bool? enabled { get; set; } = true;
+        public DateTime? created_at { get; set; }
+        public DateTime? updated_at { get; set; }
     }
 } 
