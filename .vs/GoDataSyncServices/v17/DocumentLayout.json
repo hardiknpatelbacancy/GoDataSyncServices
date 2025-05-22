@@ -1,0 +1,45 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\test1\\GoDataSyncServices\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAwwBYAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-22T07:15:54.277Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
