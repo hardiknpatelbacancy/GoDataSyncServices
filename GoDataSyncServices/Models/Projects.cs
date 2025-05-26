@@ -34,4 +34,43 @@ namespace GoDataSyncServices.Models
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }
-} 
+}
+
+/*
+ CREATE TABLE [dbo].[Projects](
+	[id] [uniqueidentifier] NOT NULL,
+	[tenants_id] [uniqueidentifier] NOT NULL,
+	[companies_id] [uniqueidentifier] NOT NULL,
+	[external_project_id] [nvarchar](100) NULL,
+	[external_division_id] [nvarchar](100) NULL,
+	[project_name] [nvarchar](255) NOT NULL,
+	[locations_id] [uniqueidentifier] NULL,
+	[summary_description] [nvarchar](max) NULL,
+	[detail_description] [nvarchar](max) NULL,
+	[workflows_id] [uniqueidentifier] NOT NULL,
+	[workflow_state] [int] NOT NULL,
+	[clients_id] [uniqueidentifier] NOT NULL,
+	[project_manager_id] [nvarchar](100) NOT NULL,
+	[parent_projects_id] [uniqueidentifier] NULL,
+	[start_date_target] [datetime2](7) NULL,
+	[end_date_target] [datetime2](7) NULL,
+	[accounts_id] [nvarchar](100) NULL,
+	[deleted] [bit] NULL,
+	[resource_projects_id] [uniqueidentifier] NULL,
+	[resource_tasks_id] [uniqueidentifier] NULL,
+	[travel_projects_id] [uniqueidentifier] NULL,
+	[travel_tasks_id] [uniqueidentifier] NULL,
+	[divisions_id] [int] NULL,
+	[branch_id] [int] NULL,
+	[default_tax_authority_id] [int] NULL,
+	[clients_name] [nvarchar](255) NULL,
+	[transaction_made] [bit] NULL,
+	[created_at] [datetime2](7) NULL,
+	[updated_at] [datetime2](7) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ */
