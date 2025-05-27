@@ -17,13 +17,15 @@ namespace GoDataSyncServices.Controllers
         private readonly IConfiguration _configuration;
         private const string ApiBaseUrl = "https://dev-portal-api.include.com";
         private readonly string _authToken;
+        private readonly ILogger<SyncGOController> _logger;
 
-        public SyncGOController(IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        public SyncGOController(IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger<SyncGOController> logger)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("Connection string not found.");
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
             _authToken = configuration["AuthToken"] ?? throw new Exception("AuthToken not found in configuration.");
+            _logger = logger;
         }
 
         [HttpPost("tenants")]
@@ -177,6 +179,11 @@ namespace GoDataSyncServices.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(tenants_id) || string.IsNullOrEmpty(companies_id))
+                {
+                    return BadRequest("Tenants ID and Companies ID are required");
+                }
+
                 var httpClient = _httpClientFactory.CreateClient();
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authToken);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -184,6 +191,7 @@ namespace GoDataSyncServices.Controllers
                 int currentPage = 1;
                 int pageSize = 100;
                 int totalRecordsSynced = 0;
+                int totalPages = 1;
 
                 do
                 {
@@ -197,96 +205,88 @@ namespace GoDataSyncServices.Controllers
 
                     var content = await response.Content.ReadAsStringAsync();
 
-                    using var doc = JsonDocument.Parse(content);
-                    var dataArray = doc.RootElement.GetProperty("data");
-
-                    if (dataArray.GetArrayLength() == 0)
-                        break;
-
                     using (IDbConnection db = new SqlConnection(_connectionString))
                     {
-                        foreach (var item in dataArray.EnumerateArray())
+                        using var doc = JsonDocument.Parse(content);
+                        var dataArray = doc.RootElement.GetProperty("data");
+                        var meta = doc.RootElement.GetProperty("meta");
+                        totalPages = meta.GetProperty("total_pages").GetInt32();
+
+                        if (dataArray.GetArrayLength() == 0)
+                            break;
+
+                        foreach (var project in dataArray.EnumerateArray())
                         {
+                            var attributes = project.GetProperty("attributes");
+                            var relationships = project.GetProperty("relationships");
 
-                            var id = Guid.Parse(item.GetProperty("id").GetString());
-                            var attributes = item.GetProperty("attributes");
-                            var relationships = item.GetProperty("relationships");
+                            var locationsData = relationships.GetProperty("locations").GetProperty("data");
+                            var workflowsData = relationships.GetProperty("workflows").GetProperty("data");
+                            var clientsData = relationships.GetProperty("clients").GetProperty("data");
 
-                            var external_project_id = attributes.GetProperty("external_project_id").GetString();
-                            var external_division_id = attributes.TryGetProperty("external_division_id", out var edidProp) ? edidProp.GetString() : null;
-                            var project_name = attributes.GetProperty("project_name").GetString();
-                            var summary_description = attributes.TryGetProperty("summary_description", out var sumDesc) ? sumDesc.GetString() : null;
-                            var detail_description = attributes.TryGetProperty("detail_description", out var detDesc) ? detDesc.GetString() : null;
-                            var workflow_state = attributes.GetProperty("workflow_state").GetInt32();
-                            var parent_projects_id = attributes.TryGetProperty("parent_projects_id", out var parentId) && !parentId.ValueKind.Equals(JsonValueKind.Null) ? Guid.Parse(parentId.GetString()) : (Guid?)null;
-                            var project_manager_id = attributes.GetProperty("project_manager_id").GetString();
-                            DateTime? start_date_target = attributes.TryGetProperty("start_date_target", out var startProp) &&
-                              startProp.ValueKind != JsonValueKind.Null &&
-                              !string.IsNullOrWhiteSpace(startProp.GetString())
-    ? DateTime.Parse(startProp.GetString())
-    : (DateTime?)null;
-                            DateTime? end_date_target = attributes.TryGetProperty("end_date_target", out var endProp) &&
-                            endProp.ValueKind != JsonValueKind.Null &&
-                            !string.IsNullOrWhiteSpace(endProp.GetString())
-    ? DateTime.Parse(endProp.GetString())
-    : (DateTime?)null;
-                            var resource_projects_id = Guid.Parse(attributes.GetProperty("resource_projects_id").GetString());
-                            var travel_projects_id = Guid.Parse(attributes.GetProperty("travel_projects_id").GetString());
-                            var divisions_id = attributes.TryGetProperty("divisions_id", out var divIdProp) ? int.Parse(divIdProp.GetString()) : (int?)null;
-                            var clients_name = attributes.TryGetProperty("clients_name", out var cnProp) ? cnProp.GetString() : null;
-                            var deleted = attributes.GetProperty("deleted").GetBoolean();
-                            var branch_id = attributes.TryGetProperty("branch_id", out var branchIdProp) && branchIdProp.ValueKind != JsonValueKind.Null ? (int?)branchIdProp.GetInt32() : null;
+                            var locationId = locationsData.GetArrayLength() > 0 ?
+                                locationsData[0].GetProperty("id").GetString() : null;
+                            var workflowId = workflowsData.GetArrayLength() > 0 ?
+                                workflowsData[0].GetProperty("id").GetString() : null;
+                            var clientId = clientsData.GetArrayLength() > 0 ?
+                                clientsData[0].GetProperty("id").GetString() : null;
 
-                            var locations_id = relationships.GetProperty("locations").GetProperty("data")[0].GetProperty("id").GetString();
-                            var workflows_id = relationships.GetProperty("workflows").GetProperty("data")[0].GetProperty("id").GetString();
-                            var clients_id = relationships.GetProperty("clients").GetProperty("data")[0].GetProperty("id").GetString();
-
-                            string sql = @"
-        INSERT INTO Projects (
-            id, tenants_id, companies_id, external_project_id, external_division_id, project_name,
-            locations_id, summary_description, detail_description, workflows_id, workflow_state,
-            clients_id, project_manager_id, parent_projects_id, start_date_target, end_date_target,
-            resource_projects_id, travel_projects_id, divisions_id, clients_name, deleted
-        )
-        VALUES (
-            @id, @tenants_id, @companies_id, @external_project_id, @external_division_id, @project_name,
-            @locations_id, @summary_description, @detail_description, @workflows_id, @workflow_state,
-            @clients_id, @project_manager_id, @parent_projects_id, @start_date_target, @end_date_target,
-            @resource_projects_id, @travel_projects_id, @divisions_id, @clients_name, @deleted
-        )";
-
-                            var parameters = new
+                            var projects = new
                             {
-                                id,
-                                tenants_id = Guid.Parse(tenants_id),
-                                companies_id = Guid.Parse(companies_id),
-                                external_project_id,
-                                external_division_id,
-                                project_name,
-                                locations_id = Guid.Parse(locations_id),
-                                summary_description,
-                                detail_description,
-                                workflows_id = Guid.Parse(workflows_id),
-                                workflow_state,
-                                clients_id = Guid.Parse(clients_id),
-                                project_manager_id,
-                                parent_projects_id,
-                                start_date_target,
-                                end_date_target,
-                                resource_projects_id,
-                                travel_projects_id,
-                                divisions_id,
-                                clients_name,
-                                deleted
+                                Id = Guid.Parse(project.GetProperty("id").GetString()),
+                                TenantsId = Guid.Parse(tenants_id),
+                                CompaniesId = Guid.Parse(companies_id),
+                                ExternalProjectId = ResponseHelper.GetStringSafe(attributes, "external_project_id"),
+                                ExternalDivisionId = ResponseHelper.GetStringSafe(attributes, "external_division_id"),
+                                ProjectName = ResponseHelper.GetStringSafe(attributes, "project_name"),
+                                LocationsId = locationId != null ? Guid.Parse(locationId) : (Guid?)null,
+                                SummaryDescription = ResponseHelper.GetStringSafe(attributes, "summary_description"),
+                                DetailDescription = ResponseHelper.GetStringSafe(attributes, "detail_description"),
+                                WorkflowsId = workflowId != null ? Guid.Parse(workflowId) : Guid.Empty,
+                                WorkflowState = attributes.TryGetProperty("workflow_state", out var ws) ? ws.GetInt32() : 0, // Default value
+                                ClientsId = clientId != null ? Guid.Parse(clientId) : Guid.Empty,
+                                ProjectManagerId = ResponseHelper.GetStringSafe(attributes, "project_manager_id"),
+                                ParentProjectsId = ResponseHelper.GetNullableGuidSafe(attributes, "parent_projects_id"),
+                                StartDateTarget = ResponseHelper.GetNullableDateTimeSafe(attributes, "start_date_target"),
+                                EndDateTarget = ResponseHelper.GetNullableDateTimeSafe(attributes, "end_date_target"),
+                                ResourceProjectsId = ResponseHelper.GetNullableGuidSafe(attributes, "resource_projects_id"),
+                                TravelProjectsId = ResponseHelper.GetNullableGuidSafe(attributes, "travel_projects_id"),
+                                ClientsName = ResponseHelper.GetStringSafe(attributes, "clients_name"),
+                                Deleted = attributes.TryGetProperty("deleted", out var del) ? del.GetBoolean() : false, // Default value
+                                ResourceTasksId = ResponseHelper.GetNullableGuidSafe(attributes, "resource_tasks_id"),
+                                TravelTasksId = ResponseHelper.GetNullableGuidSafe(attributes, "travel_tasks_id"),
+                                DivisionsId = ResponseHelper.GetNullableInt32Safe(attributes, "divisions_id"),
+                                BranchId = ResponseHelper.GetNullableInt32Safe(attributes, "branch_id"),
+                                CreatedAt = ResponseHelper.GetNullableDateTimeSafe(attributes, "created_at"),
+                                UpdatedAt = ResponseHelper.GetNullableDateTimeSafe(attributes, "updated_at")
                             };
 
-                            await db.ExecuteAsync(sql, parameters);
+                            string insertQuery = @"INSERT INTO Projects (
+                                id, tenants_id, companies_id, external_project_id, external_division_id,
+                                project_name, locations_id, summary_description, detail_description,
+                                workflows_id, workflow_state, clients_id, project_manager_id,
+                                parent_projects_id, start_date_target, end_date_target,
+                                resource_tasks_id,travel_tasks_id, divisions_id, branch_id,
+                                resource_projects_id, travel_projects_id, clients_name,
+                                deleted, created_at, updated_at
+                            ) VALUES (
+                                @Id, @TenantsId, @CompaniesId, @ExternalProjectId, @ExternalDivisionId,
+                                @ProjectName, @LocationsId, @SummaryDescription, @DetailDescription,
+                                @WorkflowsId, @WorkflowState, @ClientsId, @ProjectManagerId,
+                                @ParentProjectsId, @StartDateTarget, @EndDateTarget,
+                                @ResourceTasksId, @TravelTasksId, @DivisionsId, @BranchId,
+                                @ResourceProjectsId, @TravelProjectsId, @ClientsName,
+                                @Deleted, @CreatedAt, @UpdatedAt
+                            )";
+
+                            await db.ExecuteAsync(insertQuery, projects);
                             totalRecordsSynced++;
                         }
+
                     }
 
-
-                } while (true);
+                    currentPage++;
+                } while (currentPage <= totalPages);
 
                 return Ok(new
                 {
@@ -434,3 +434,52 @@ namespace GoDataSyncServices.Controllers
 
     }
 }
+
+
+public static class ResponseHelper
+{
+    // Helper methods to safely retrieve values
+    public static string GetStringSafe(JsonElement element, string propertyName)
+    {
+        if (element.TryGetProperty(propertyName, out var prop) && prop.ValueKind != JsonValueKind.Null)
+            return prop.GetString();
+        return null;
+    }
+
+    public static Guid? GetNullableGuidSafe(JsonElement element, string propertyName)
+    {
+        if (element.TryGetProperty(propertyName, out var prop) && prop.ValueKind != JsonValueKind.Null)
+            return Guid.Parse(prop.GetString());
+        return null;
+    }
+
+    public static int? GetNullableInt32Safe(JsonElement element, string propertyName)
+    {
+        if (!element.TryGetProperty(propertyName, out var prop) || prop.ValueKind == JsonValueKind.Null)
+            return null;
+
+        try
+        {
+            return prop.ValueKind switch
+            {
+                JsonValueKind.Number => prop.GetInt32(),
+                JsonValueKind.String => int.Parse(prop.GetString()),
+                _ => throw new FormatException($"Invalid format for {propertyName}")
+            };
+        }
+        catch (FormatException ex)
+        {
+            // Handle invalid format (log, use default, etc.)
+            return null; // or throw custom exception
+        }
+    }
+
+    public static DateTime? GetNullableDateTimeSafe(JsonElement element, string propertyName)
+    {
+        if (element.TryGetProperty(propertyName, out var prop) && prop.ValueKind != JsonValueKind.Null)
+            return DateTime.Parse(prop.GetString());
+        return null;
+    }
+}
+
+  
