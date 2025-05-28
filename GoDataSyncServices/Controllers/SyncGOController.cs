@@ -479,26 +479,24 @@ namespace GoDataSyncServices.Controllers
 
                             var locationData = new
                             {
-                                Id = Guid.Parse(location.GetProperty("id").GetString()),
-                                Address = attributes.GetProperty("address").GetString(),
+                                Id = ResponseHelper.GetNullableGuidSafe(location, "id"),
+                                Address = ResponseHelper.GetStringSafe(attributes, "address"),
                                 TenantsId = Guid.Parse(tenants_id),
                                 CompaniesId = Guid.Parse(companies_id),
-                                Latitude = attributes.TryGetProperty("latitude", out var lat) ? (double?)lat.GetDouble() : null,
-                                Longitude = attributes.TryGetProperty("longitude", out var lon) ? (double?)lon.GetDouble() : null,
+                                Latitude = ResponseHelper.GetNullableFloatSafe(attributes, "latitude"),
+                                Longitude = ResponseHelper.GetNullableFloatSafe(attributes, "longitude"),
                                 AccountsId = (string)null, // Not provided in API response
                                 Deleted = false, // Default value
-                                CreatedAt = attributes.TryGetProperty("createdAt", out var createdAt) ? 
-                                    DateTime.Parse(createdAt.GetString()) : (DateTime?)null,
-                                UpdatedAt = DateTime.UtcNow 
+                                CreatedAt = ResponseHelper.GetNullableDateTimeSafe(attributes, "createdAt")
                             };
 
                             string insertQuery = @"
                                 INSERT INTO Locations (
                                     id, address, tenants_id, companies_id, latitude, longitude,
-                                    accounts_id, deleted, created_at, updated_at
+                                    accounts_id, deleted, created_at
                                 ) VALUES (
                                     @Id, @Address, @TenantsId, @CompaniesId, @Latitude, @Longitude,
-                                    @AccountsId, @Deleted, @CreatedAt, @UpdatedAt
+                                    @AccountsId, @Deleted, @CreatedAt
                                 )";
 
                             await db.ExecuteAsync(insertQuery, locationData);
@@ -568,6 +566,26 @@ public static class ResponseHelper
         if (element.TryGetProperty(propertyName, out var prop) && prop.ValueKind != JsonValueKind.Null)
             return DateTime.Parse(prop.GetString());
         return null;
+    }
+
+    public static float? GetNullableFloatSafe(JsonElement element, string propertyName)
+    {
+        if (!element.TryGetProperty(propertyName, out var prop) || prop.ValueKind == JsonValueKind.Null)
+            return null;
+
+        try
+        {
+            return prop.ValueKind switch
+            {
+                JsonValueKind.Number => (float)prop.GetDouble(),
+                JsonValueKind.String => float.Parse(prop.GetString()),
+                _ => null
+            };
+        }
+        catch (FormatException)
+        {
+            return null;
+        }
     }
 }
 
