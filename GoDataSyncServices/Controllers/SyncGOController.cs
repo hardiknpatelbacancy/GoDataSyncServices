@@ -432,6 +432,95 @@ namespace GoDataSyncServices.Controllers
             }
         }
 
+        [HttpPost("locations")]
+        public async Task<IActionResult> SyncLocations([FromQuery] string tenants_id, [FromQuery] string companies_id)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tenants_id) || string.IsNullOrEmpty(companies_id))
+                {
+                    return BadRequest("Tenants ID and Companies ID are required");
+                }
+
+                var httpClient = _httpClientFactory.CreateClient();
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authToken);
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                int currentPage = 1;
+                int pageSize = 100;
+                int totalRecordsSynced = 0;
+                int totalPages = 1;
+
+                do
+                {
+                    var url = $"{ApiBaseUrl}/includego/tenants/{tenants_id}/companies/{companies_id}/locations?page[number]={currentPage}&page[size]={pageSize}";
+                    var response = await httpClient.GetAsync(url);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return StatusCode((int)response.StatusCode, $"API request failed: {response.ReasonPhrase}");
+                    }
+
+                    var content = await response.Content.ReadAsStringAsync();
+
+                    using (IDbConnection db = new SqlConnection(_connectionString))
+                    {
+                        using var doc = JsonDocument.Parse(content);
+                        var dataArray = doc.RootElement.GetProperty("data");
+                        var meta = doc.RootElement.GetProperty("meta");
+                        totalPages = meta.GetProperty("total_pages").GetInt32();
+
+                        if (dataArray.GetArrayLength() == 0)
+                            break;
+
+                        foreach (var location in dataArray.EnumerateArray())
+                        {
+                            var attributes = location.GetProperty("attributes");
+
+                            var locationData = new
+                            {
+                                Id = Guid.Parse(location.GetProperty("id").GetString()),
+                                Address = attributes.GetProperty("address").GetString(),
+                                TenantsId = Guid.Parse(tenants_id),
+                                CompaniesId = Guid.Parse(companies_id),
+                                Latitude = attributes.TryGetProperty("latitude", out var lat) ? (double?)lat.GetDouble() : null,
+                                Longitude = attributes.TryGetProperty("longitude", out var lon) ? (double?)lon.GetDouble() : null,
+                                AccountsId = (string)null, // Not provided in API response
+                                Deleted = false, // Default value
+                                CreatedAt = attributes.TryGetProperty("createdAt", out var createdAt) ? 
+                                    DateTime.Parse(createdAt.GetString()) : (DateTime?)null,
+                                UpdatedAt = DateTime.UtcNow 
+                            };
+
+                            string insertQuery = @"
+                                INSERT INTO Locations (
+                                    id, address, tenants_id, companies_id, latitude, longitude,
+                                    accounts_id, deleted, created_at, updated_at
+                                ) VALUES (
+                                    @Id, @Address, @TenantsId, @CompaniesId, @Latitude, @Longitude,
+                                    @AccountsId, @Deleted, @CreatedAt, @UpdatedAt
+                                )";
+
+                            await db.ExecuteAsync(insertQuery, locationData);
+                            totalRecordsSynced++;
+                        }
+                    }
+
+                    currentPage++;
+                } while (currentPage <= totalPages);
+
+                return Ok(new
+                {
+                    Message = "Locations sync completed successfully",
+                    TotalRecordsSynced = totalRecordsSynced
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
     }
 }
 
