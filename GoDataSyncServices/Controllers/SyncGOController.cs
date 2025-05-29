@@ -347,10 +347,9 @@ namespace GoDataSyncServices.Controllers
                                 TenantsId = Guid.Parse(tenants_id),
                                 CompaniesId = Guid.Parse(companies_id),
                                 ParentTasksId = attr.TryGetProperty("parent_tasks_id", out var parentTaskVal) &&
-                parentTaskVal.ValueKind == JsonValueKind.String &&
-                Guid.TryParse(parentTaskVal.GetString(), out var parsedParentTaskId)
-                ? parsedParentTaskId
-                : (Guid?)null,
+                                                parentTaskVal.ValueKind == JsonValueKind.String &&
+                                                Guid.TryParse(parentTaskVal.GetString(), out var parsedParentTaskId)
+                                                ? parsedParentTaskId: (Guid?)null,
                                 LocationsId = rel.TryGetProperty("locations", out var locs) && locs.GetProperty("data").GetArrayLength() > 0
                                     ? Guid.Parse(locs.GetProperty("data")[0].GetProperty("id").GetString())
                                     : (Guid?)null,
@@ -510,6 +509,117 @@ namespace GoDataSyncServices.Controllers
                 return Ok(new
                 {
                     Message = "Locations sync completed successfully",
+                    TotalRecordsSynced = totalRecordsSynced
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("workflows")]
+        public async Task<IActionResult> SyncWorkflows([FromQuery] string tenants_id, [FromQuery] string companies_id)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tenants_id) || string.IsNullOrEmpty(companies_id))
+                {
+                    return BadRequest("Tenants ID and Companies ID are required");
+                }
+
+                var httpClient = _httpClientFactory.CreateClient();
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authToken);
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                int currentPage = 1;
+                int pageSize = 100;
+                int totalRecordsSynced = 0;
+                int totalPages = 1;
+
+                do
+                {
+                    var url = $"{ApiBaseUrl}/includego/tenants/{tenants_id}/companies/{companies_id}/workflows?page[number]={currentPage}&page[size]={pageSize}";
+                    var response = await httpClient.GetAsync(url);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return StatusCode((int)response.StatusCode, $"API request failed: {response.ReasonPhrase}");
+                    }
+
+                    var content = await response.Content.ReadAsStringAsync();
+
+                    using (IDbConnection db = new SqlConnection(_connectionString))
+                    {
+                        using var doc = JsonDocument.Parse(content);
+                        var dataArray = doc.RootElement.GetProperty("data");
+                        var meta = doc.RootElement.GetProperty("meta");
+                        totalPages = meta.GetProperty("total_pages").GetInt32();
+
+                        if (dataArray.GetArrayLength() == 0)
+                            break;
+
+                        foreach (var workflow in dataArray.EnumerateArray())
+                        {
+                            var attributes = workflow.GetProperty("attributes");
+                            var workflowStates = attributes.GetProperty("workflow_states");
+
+                            var workflowData = new
+                            {
+                                Id = ResponseHelper.GetNullableGuidSafe(workflow, "id"),
+                                TenantsId = Guid.Parse(tenants_id),
+                                CompaniesId = Guid.Parse(companies_id),
+                                SummaryDescription = ResponseHelper.GetStringSafe(attributes, "summary_description"),
+                                DetailDescription = ResponseHelper.GetStringSafe(attributes, "detail_description"),
+                                SortOrder = ResponseHelper.GetNullableFloatSafe(attributes, "sort_order"),
+                                AccountsId = (string)null, // Not provided in API response
+                                Deleted = false, // Default value
+                                WorkflowStateCompleted = (int?)null, // Not provided in API response
+                                CreatedAt = ResponseHelper.GetNullableDateTimeSafe(attributes, "createdAt")
+                            };
+
+                            string insertWorkflowQuery = @"
+                                INSERT INTO Workflows (
+                                    id, tenants_id, companies_id, summary_description, detail_description,
+                                    sort_order, accounts_id, deleted, workflow_state_completed, created_at
+                                ) VALUES (
+                                    @Id, @TenantsId, @CompaniesId, @SummaryDescription, @DetailDescription,
+                                    @SortOrder, @AccountsId, @Deleted, @WorkflowStateCompleted, @CreatedAt
+                                )";
+
+                            await db.ExecuteAsync(insertWorkflowQuery, workflowData);
+
+                            // Insert workflow states
+                            foreach (var state in workflowStates.EnumerateArray())
+                            {
+                                var stateData = new
+                                {
+                                    Id = Guid.NewGuid(), // Generate new GUID for state
+                                    WorkflowsId = workflowData.Id,
+                                    StateName = ResponseHelper.GetStringSafe(state, "name"),
+                                    StateOrder = ResponseHelper.GetNullableInt32Safe(state, "id"),
+                                };
+
+                                string insertStateQuery = @"
+                                    INSERT INTO WorkflowStates (
+                                        id, workflows_id, state_name, state_order
+                                    ) VALUES (
+                                        @Id, @WorkflowsId, @StateName, @StateOrder
+                                    )";
+
+                                await db.ExecuteAsync(insertStateQuery, stateData);
+                            }
+
+                            totalRecordsSynced++;
+                        }
+                    }
+
+                    currentPage++;
+                } while (currentPage <= totalPages);
+
+                return Ok(new
+                {
+                    Message = "Workflows sync completed successfully",
                     TotalRecordsSynced = totalRecordsSynced
                 });
             }
