@@ -1,13 +1,8 @@
-using System;
-using System.Net.Http;
 using System.Text.Json;
-using System.Threading.Tasks;
 using GoDataSyncServices.Helper;
-using GoDataSyncServices.Models;
 using GoDataSyncServices.Services.Base;
 using GoDataSyncServices.Services.Configuration;
 using GoDataSyncServices.Services.Interfaces;
-using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using Dapper;
 

@@ -1,5 +1,130 @@
 [
   {
+    "ContainingType": "GoDataSyncServices.Controllers.SyncGOController",
+    "Method": "SyncClients",
+    "RelativePath": "api/SyncGO/clients",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tenants_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companies_id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GoDataSyncServices.Controllers.SyncGOController",
+    "Method": "SyncCompanies",
+    "RelativePath": "api/SyncGO/companies",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GoDataSyncServices.Controllers.SyncGOController",
+    "Method": "SyncLocations",
+    "RelativePath": "api/SyncGO/locations",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tenants_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companies_id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GoDataSyncServices.Controllers.SyncGOController",
+    "Method": "SyncProjects",
+    "RelativePath": "api/SyncGO/projects",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tenants_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companies_id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GoDataSyncServices.Controllers.SyncGOController",
+    "Method": "SyncTasks",
+    "RelativePath": "api/SyncGO/tasks",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tenants_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companies_id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GoDataSyncServices.Controllers.SyncGOController",
+    "Method": "SyncTenants",
+    "RelativePath": "api/SyncGO/tenants",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GoDataSyncServices.Controllers.SyncGOController",
+    "Method": "SyncWorkflows",
+    "RelativePath": "api/SyncGO/workflows",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tenants_id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companies_id",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "GoDataSyncServices.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

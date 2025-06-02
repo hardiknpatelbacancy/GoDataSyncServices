@@ -6,8 +6,18 @@ C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\GoDataSyncServic
 C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\GoDataSyncServices.runtimeconfig.json
 C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\GoDataSyncServices.dll
 C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\GoDataSyncServices.pdb
+C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\Dapper.dll
 C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
 C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\System.Data.SqlClient.dll
+C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\runtimes\win-arm64\native\sni.dll
+C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\runtimes\win-x64\native\sni.dll
+C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\runtimes\win-x86\native\sni.dll
+C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\test1\GoDataSyncServices\GoDataSyncServices\bin\Debug\net9.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\GoDataSyncServices.csproj.AssemblyReference.cache
 C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\GoDataSyncServices.GeneratedMSBuildEditorConfig.editorconfig
 C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\GoDataSyncServices.AssemblyInfoInputs.cache
@@ -15,6 +25,7 @@ C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\GoDataSyncServic
 C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\GoDataSyncServices.csproj.CoreCompileInputs.cache
 C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\GoDataSyncServices.MvcApplicationPartsAssemblyInfo.cs
 C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\GoDataSyncServices.MvcApplicationPartsAssemblyInfo.cache
+C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\GoDataSyncServices.sourcelink.json
 C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\scopedcss\bundle\GoDataSyncServices.styles.css
 C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\staticwebassets.build.json
 C:\test1\GoDataSyncServices\GoDataSyncServices\obj\Debug\net9.0\staticwebassets.development.json

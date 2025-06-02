@@ -3,8 +3,48 @@
   "WorkspaceRootPath": "C:\\test1\\GoDataSyncServices\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\services\\workflowsyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\services\\workflowsyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\services\\tenantsyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\services\\tenantsyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\services\\tasksyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\services\\tasksyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\services\\projectsyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\services\\projectsyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\services\\locationsyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\services\\locationsyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\services\\interfaces\\isyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\services\\interfaces\\isyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\services\\clientsyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\services\\clientsyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\services\\configuration\\apiconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\services\\configuration\\apiconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\services\\base\\basesyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\services\\base\\basesyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\controllers\\syncgocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\controllers\\syncgocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|c:\\test1\\godatasyncservices\\godatasyncservices\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CDD4E97-3FBD-43A3-86FE-B2302E825EE6}|GoDataSyncServices\\GoDataSyncServices.csproj|solutionrelative:godatasyncservices\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,14 +67,144 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Controllers\\WeatherForecastController.cs",
-              "RelativeDocumentMoniker": "GoDataSyncServices\\Controllers\\WeatherForecastController.cs",
-              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Controllers\\WeatherForecastController.cs",
-              "RelativeToolTip": "GoDataSyncServices\\Controllers\\WeatherForecastController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBQAAAArAAAAAAAAAA==",
+              "Title": "WorkflowSyncService.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\WorkflowSyncService.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Services\\WorkflowSyncService.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\WorkflowSyncService.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Services\\WorkflowSyncService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-22T07:15:54.277Z",
+              "WhenOpened": "2025-06-02T09:31:22.255Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TenantSyncService.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\TenantSyncService.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Services\\TenantSyncService.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\TenantSyncService.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Services\\TenantSyncService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T09:31:12.651Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TaskSyncService.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\TaskSyncService.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Services\\TaskSyncService.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\TaskSyncService.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Services\\TaskSyncService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T09:31:10.521Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProjectSyncService.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\ProjectSyncService.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Services\\ProjectSyncService.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\ProjectSyncService.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Services\\ProjectSyncService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T09:31:05.661Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LocationSyncService.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\LocationSyncService.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Services\\LocationSyncService.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\LocationSyncService.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Services\\LocationSyncService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T09:28:00.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ISyncService.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\Interfaces\\ISyncService.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Services\\Interfaces\\ISyncService.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\Interfaces\\ISyncService.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Services\\Interfaces\\ISyncService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T09:27:42.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ApiConfiguration.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\Configuration\\ApiConfiguration.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Services\\Configuration\\ApiConfiguration.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\Configuration\\ApiConfiguration.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Services\\Configuration\\ApiConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T09:15:18.299Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BaseSyncService.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\Base\\BaseSyncService.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Services\\Base\\BaseSyncService.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\Base\\BaseSyncService.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Services\\Base\\BaseSyncService.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAIwCMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T09:13:42.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ClientSyncService.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\ClientSyncService.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Services\\ClientSyncService.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Services\\ClientSyncService.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Services\\ClientSyncService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T07:08:21.103Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Program.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Program.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Program.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T07:07:56.478Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SyncGOController.cs",
+              "DocumentMoniker": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Controllers\\SyncGOController.cs",
+              "RelativeDocumentMoniker": "GoDataSyncServices\\Controllers\\SyncGOController.cs",
+              "ToolTip": "C:\\test1\\GoDataSyncServices\\GoDataSyncServices\\Controllers\\SyncGOController.cs",
+              "RelativeToolTip": "GoDataSyncServices\\Controllers\\SyncGOController.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAqwG8AAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T06:53:28.254Z",
               "EditorCaption": ""
             }
           ]
