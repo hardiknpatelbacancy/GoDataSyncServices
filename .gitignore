@@ -142,4 +142,4 @@ $RECYCLE.BIN/
 .vs/GoDataSyncServices/CopilotIndices/
 .vs/GoDataSyncServices/
 GoDataSyncServices/obj/
-GoDataSyncServices/obj/
+GoDataSyncServices/obj/Debug/
