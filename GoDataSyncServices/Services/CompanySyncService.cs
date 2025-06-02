@@ -1,10 +1,4 @@
-using System.Data.SqlClient;
-using System.Text.Json;
-using Dapper;
 using GoDataSyncServices.RequestModels;
-using GoDataSyncServices.Services.Base;
-using GoDataSyncServices.Services.Configuration;
-using GoDataSyncServices.Services.Interfaces;
 
 namespace GoDataSyncServices.Services
 {

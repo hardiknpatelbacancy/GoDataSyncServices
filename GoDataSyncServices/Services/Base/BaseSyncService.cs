@@ -1,5 +1,4 @@
 using System.Net.Http.Headers;
-using GoDataSyncServices.Services.Interfaces;
 
 namespace GoDataSyncServices.Services.Base
 {

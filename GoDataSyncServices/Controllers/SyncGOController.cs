@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-using GoDataSyncServices.Services;
-using GoDataSyncServices.Services.Configuration;
-
 namespace GoDataSyncServices.Controllers
 {
     [ApiController]

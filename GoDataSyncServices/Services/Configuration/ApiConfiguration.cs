@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Configuration;
-
 namespace GoDataSyncServices.Services.Configuration
 {
     public class ApiConfiguration

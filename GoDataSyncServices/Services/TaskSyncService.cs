@@ -1,11 +1,3 @@
-using System.Text.Json;
-using GoDataSyncServices.Helper;
-using GoDataSyncServices.Services.Base;
-using GoDataSyncServices.Services.Configuration;
-using GoDataSyncServices.Services.Interfaces;
-using System.Data.SqlClient;
-using Dapper;
-
 namespace GoDataSyncServices.Services
 {
     public class TaskSyncService : BaseSyncService
