@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using GoDataSyncServices.Services;
 using GoDataSyncServices.Services.Configuration;
-using GoDataSyncServices.Services.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace GoDataSyncServices.Controllers
 {
@@ -99,6 +97,20 @@ namespace GoDataSyncServices.Controllers
 
             var serviceLogger = _loggerFactory.CreateLogger<WorkflowSyncService>();
             var service = new WorkflowSyncService(_httpClientFactory, _configuration, serviceLogger, _apiConfig);
+            var result = await service.SyncAsync(tenants_id, companies_id);
+            return result.Success ? Ok(result) : StatusCode(500, result);
+        }
+
+        [HttpPost("clients")]
+        public async Task<IActionResult> SyncClients([FromQuery] string tenants_id, [FromQuery] string companies_id)
+        {
+            if (string.IsNullOrEmpty(tenants_id) || string.IsNullOrEmpty(companies_id))
+            {
+                return BadRequest("Tenants ID and Companies ID are required");
+            }
+
+            var serviceLogger = _loggerFactory.CreateLogger<ClientSyncService>();
+            var service = new ClientSyncService(_httpClientFactory, _configuration, serviceLogger, _apiConfig);
             var result = await service.SyncAsync(tenants_id, companies_id);
             return result.Success ? Ok(result) : StatusCode(500, result);
         }

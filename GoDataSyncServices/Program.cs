@@ -1,7 +1,3 @@
-using GoDataSyncServices.Services;
-using GoDataSyncServices.Services.Base;
-using GoDataSyncServices.Services.Configuration;
-using GoDataSyncServices.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
